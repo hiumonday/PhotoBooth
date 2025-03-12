@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
 
 .App-logo {
@@ -35,4 +42,275 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.photobooth-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #333 0%, #111 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.stickers-sidebar {
+  width: 150px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.stickers-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.sticker-item {
+  font-size: 24px;
+  cursor: grab;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.sticker-item:hover {
+  transform: scale(1.1);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.camera-view {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-placeholder {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  color: #666;
+}
+
+.camera-feed {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  transform: scaleX(-1); /* Mirror the webcam feed */
+}
+
+.camera-error {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #dc3545;
+  font-size: 1.2em;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.capture-btn {
+  padding: 12px 24px;
+  font-size: 18px;
+  background: linear-gradient(to bottom, #ff5252, #b33939);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.capture-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.capture-btn:active {
+  transform: translateY(1px);
+}
+
+.capture-btn:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.options-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.options-buttons button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: white;
+  cursor: pointer;
+}
+
+.photo-gallery {
+  width: 250px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  margin-left: 15px;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.gallery-item {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 5px;
+  transition: transform 0.2s;
+}
+
+.gallery-item:hover {
+  transform: scale(1.05);
+}
+
+.gallery-item-container {
+  position: relative;
+  width: 100%;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 0, 0, 0.7);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.gallery-item-container:hover .delete-btn {
+  opacity: 1;
+}
+
+.filters-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.filter-option {
+  margin: 5px;
+  padding: 6px 12px;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filter-option.active {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3;
+}
+
+.controls-container {
+  margin-top: 15px;
+}
+
+.placed-sticker {
+  user-select: none;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ai-effects-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: scaleX(-1); /* Mirror to match video */
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* Remove AI toggle button styles */
+.ai-toggle {
+  display: none;
+}
+
+/* Remove these classes if they exist */
+.image-settings,
+.settings-controls,
+.setting-item {
+  display: none;
+}
+
+button {
+  padding: 8px 16px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #555;
+}
+
+/* Add booth-main class */
+.booth-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Add camera-container class */
+.camera-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
