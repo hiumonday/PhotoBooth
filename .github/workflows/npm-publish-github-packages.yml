@@ -2,14 +2,14 @@ name: PhotoBooth CI/CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -17,26 +17,36 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
-          cache: 'npm'
-          cache-dependency-path: './photobooth/package-lock.json'
-          
+          node-version: "18.x"
+          cache: "npm"
+          cache-dependency-path: "photobooth/package-lock.json" # Đường dẫn tương đối từ root repo
+
+      # Bỏ caching riêng vì setup-node đã bao gồm caching
+      # Nếu muốn cache thêm, hãy sửa như dưới đây:
+      # - name: Cache dependencies
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node-${{ hashFiles('photobooth/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
+
       - name: Install dependencies
         working-directory: ./photobooth
         run: npm ci
-      
+
       - name: Lint check
         working-directory: ./photobooth
         run: npm run lint || echo "No lint script found"
-        
+
       - name: Run tests
         working-directory: ./photobooth
         run: npm test -- --passWithNoTests
-        
+
       - name: Build application
         working-directory: ./photobooth
         run: npm run build
-        
+
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
@@ -47,14 +57,14 @@ jobs:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:
           name: build-files
           path: ./build
-          
+
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.3
         with:

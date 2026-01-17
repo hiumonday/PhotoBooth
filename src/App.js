@@ -5,7 +5,7 @@ import Controls from "./components/Controls";
 import PhotoGallery from "./components/PhotoGallery";
 import Filters from "./components/Filters";
 import Stickers from "./components/Stickers";
-
+//sakdjkasdhjksadjksadjkasdhjkasdhjksadhka
 function App() {
   const [photos, setPhotos] = useState([]);
   const [currentFilter, setCurrentFilter] = useState("none");
